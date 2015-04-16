@@ -6,9 +6,11 @@
 import Foundation
 
 class Array2D<T> {
+    
     let columns: Int
     let rows: Int
-    var array: Array<T?>  // private
+    
+    private var array: Array<T?>  // private
     
     init(columns: Int, rows: Int) {
         self.columns = columns

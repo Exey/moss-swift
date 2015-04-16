@@ -2,7 +2,6 @@
 //  Regex
 //  Created by Exey Panteleev
 //  Based on https://github.com/kasei/SwiftRegex/
-//  See https://developer.apple.com/library/ios/documentation/Foundation/Reference/NSRegularExpression_Class/Reference/Reference.html
 //
 import Foundation
 
@@ -18,12 +17,12 @@ func =~ (value : String, pattern : String) -> RegexMatchResult {
     }
     let all = NSRange(location: 0, length: nsstr.length)
     let moptions = NSMatchingOptions(0)
-    var matches : Array<String> = []
-    re.enumerateMatchesInString(value, options: moptions, range: all) {
-        (result : NSTextCheckingResult!, flags : NSMatchingFlags, ptr : UnsafeMutablePointer<ObjCBool>) in
+    var matches : [String] = []
+    re?.enumerateMatchesInString(value, options: moptions, range: all, usingBlock:  {
+        (result : NSTextCheckingResult!, flags : NSMatchingFlags, ptr : UnsafeMutablePointer<ObjCBool>)-> Void in
         let string = nsstr.substringWithRange(result.range)
         matches.append(string)
-    }
+    })
     return RegexMatchResult(items: matches)
 }
 
@@ -34,11 +33,11 @@ struct RegexMatchCaptureGenerator : GeneratorType {
         items = items[1..<items.count]
         return ret
     }
-    var items: Slice<String>
+    var items: ArraySlice<String>
 }
 
 struct RegexMatchResult : SequenceType, BooleanType {
-    var items: Array<String>
+    var items: [String]
     func generate() -> RegexMatchCaptureGenerator {
         return RegexMatchCaptureGenerator(items: items[0..<items.count])
     }

@@ -6,12 +6,12 @@
 import Foundation
 
 /**
- * Kit for game speedcoding on Swift/iOS
+ * Kit for speedcoding on Swift/iOS
  * @see https://github.com/Exey/moss-swift
  * @author Exey Panteleev
  */
 public struct Moss {
     
-    static public let VERSION =  "0.001"
+    static public let VERSION =  "0.002"
 
 }
